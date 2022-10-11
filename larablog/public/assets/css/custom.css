@@ -1,0 +1,41 @@
+.navbar{
+    padding: 0px 0px !important;   
+}
+.navbar-nav .nav-link{
+    color: #fff !important;
+    font-weight: 600;
+    border-right: 1px solid;
+    padding: 8px 18px !important;
+}
+.category-heading{
+    padding: 10px 12px;
+    border-left: 6px solid #000;
+    background-color: #ddd;
+}
+.card-shadow{
+    box-shadow: 0px 2px 8px 0 rgb(0 0 0 /10%);
+    border-radius: 5px;
+}
+.post-heading{
+    font-size: 26px;
+    color: #000;
+}
+.owl-nav button.owl-next, .owl-nav button .owl-prev {
+    color: #fff;
+    margin-left: 10px;
+    background-color: orange !important;
+    border: none !important;
+    outline: none !important;
+    font-size: 20px !important;
+    height: 28px !important;
+    width: 38px !important;
+}
+.underline{
+    width: 5%;
+    height: 3px;
+    background: crimson;
+    margin-bottom: 10px;
+}
+.bg-grey{
+    background-color: #ddd;
+}
