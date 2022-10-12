@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 // Comment
 Route::post('delete-comment',[CommentController::class, 'destroy']);
+Route::post('edit-comment',[CommentController::class, 'update']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

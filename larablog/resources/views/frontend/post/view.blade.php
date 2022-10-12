@@ -49,10 +49,10 @@
                                 <h6 class="mb-1">{{ $comment->user->name }} 
                                     <small class="ms-3 text-primary">Commented on: {{ $comment->created_at->format('d-M-Y') }}</small>
                                 </h6>
-                                <p>{{ $comment->comments }}</p>
+                                <p id="comment_para_{{ $comment->id }}">{{ $comment->comments }}</p>
                                 @if (Auth::check() && Auth::user()->id == $comment->user_id)
                                     <div class="button">
-                                        <button class="btn btn-primary btn-sm me-2">Edit</button>
+                                        <button onclick="edit_modal({{ $comment->id }})" class="btn btn-primary btn-sm me-2">Edit</button>
                                         <button onclick="delete_comment({{ $comment->id }})" class="btn btn-danger btn-sm me-2 delete">Delete</button>
                                     </div>
                                 @endif
@@ -84,6 +84,30 @@
     </div>
 </div>
 
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Comment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="form_comment">
+                @csrf
+                <div class="modal-body">
+                    <input type="hidden" name="comment_id">
+                    <label>Comment</label>
+                    <textarea class="form-control" name="comments"></textarea>      
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="udpate_btn">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <script>
     function delete_comment(id){
         if(confirm('Do Really want to Delete This ?')){
@@ -98,10 +122,47 @@
                     $('.delete').closest('.comment-content').remove();
                 }
             });
-
-
         }
     }
+
+    function edit_modal(id){
+        var comment   =    $('#comment_para_'+id).text();
+
+        $("input[name=comment_id]").val(id);
+        $("textarea[name=comments]").val(comment);
+        $('#editModal').modal('show');
+    }
+
+    // $('#form_comment').on('submit',function(e){
+    //     e.preventDefault();
+    //     $.ajax({
+    //         headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             },
+    //         type:'post',
+    //         url: 'edit-comment',
+    //         data: new FormData(),
+    //         processData: false,
+    //         contentType: false,
+    //         success: function(res){
+    //             window.location.relaod();
+    //         }
+    //     });
+    // });
+
+    $('#udpate_btn').on('click',function(){
+        $.ajax({
+            headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+            type:'post',
+            url: 'edit-comment',
+            data: $('#form_comment').serialize(),
+            success: function(res){
+                window.location.relaod();
+            }
+        });
+    });
 </script>
 
 

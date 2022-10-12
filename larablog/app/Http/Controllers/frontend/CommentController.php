@@ -40,4 +40,9 @@ class CommentController extends Controller
             }
         }
     }
+    function update(Request $request){
+        $id   =     $request->input('comment_id');
+        $comment     =      Comments::find($id);
+        dd($comment);   
+    }
 }
